@@ -1,0 +1,179 @@
+/* ============================================================
+   Site footer — dark band with brand block, link columns and
+   a bottom bar carrying the existing contact details.
+   ============================================================ */
+
+.footer {
+  background: var(--ink-900);
+  color: var(--on-dark-2);
+  padding-top: clamp(56px, 6vw, 88px);
+}
+
+.footer__top {
+  display: grid;
+  gap: clamp(32px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  padding-bottom: clamp(40px, 4vw, 60px);
+}
+
+.footer__brand .brand {
+  color: var(--on-dark-1);
+}
+
+.footer__about {
+  color: var(--on-dark-2);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  margin-top: 18px;
+  max-width: 38ch;
+}
+
+.footer__tagline {
+  color: var(--brand-bright);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+.footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.footer__social-link {
+  align-items: center;
+  border: 1px solid var(--line-dark-2);
+  border-radius: var(--r-full);
+  color: var(--on-dark-1);
+  display: inline-flex;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  gap: 8px;
+  padding: 9px 15px;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease);
+}
+
+.footer__social-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--brand-bright);
+  color: var(--brand-bright);
+}
+
+.footer__col-title {
+  color: var(--on-dark-1);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.footer__col ul {
+  display: grid;
+  gap: 11px;
+}
+
+.footer__col a {
+  color: var(--on-dark-2);
+  font-size: 0.9375rem;
+  transition: color var(--t-fast) var(--ease);
+}
+
+.footer__col a:hover {
+  color: var(--brand-bright);
+}
+
+.footer__contact {
+  border-top: 1px solid var(--line-dark);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-block: clamp(26px, 3vw, 36px);
+}
+
+.footer__contact-item {
+  align-items: flex-start;
+  display: flex;
+  gap: 11px;
+}
+
+.footer__contact-item svg {
+  color: var(--brand-bright);
+  flex: none;
+  margin-top: 3px;
+}
+
+.footer__contact-item small {
+  color: var(--on-dark-3);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.footer__contact-item a,
+.footer__contact-item span {
+  color: var(--on-dark-1);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.footer__contact-item a:hover {
+  color: var(--brand-bright);
+}
+
+.footer__bottom {
+  align-items: center;
+  border-top: 1px solid var(--line-dark);
+  color: var(--on-dark-3);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  gap: 14px;
+  justify-content: space-between;
+  padding-block: 22px 26px;
+}
+
+.footer__bottom-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer__bottom a {
+  color: var(--on-dark-3);
+}
+
+.footer__bottom a:hover {
+  color: var(--brand-bright);
+}
+
+@media (max-width: 1000px) {
+  .footer__top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .footer__contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+  .footer__contact {
+    grid-template-columns: 1fr;
+  }
+  .footer__bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+}

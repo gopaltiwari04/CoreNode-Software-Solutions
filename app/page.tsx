@@ -1,27 +1,2003 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import Link from "next/link";
-import SiteNav from "@/app/components/SiteNav";
-import SiteFooter from "@/app/components/SiteFooter";
+import React, { useState, useEffect, useRef } from "react";
+import SiteNav from "./components/SiteNav";
+import SiteFooter from "./components/SiteFooter";
 
-const services = [["01", "Business websites", "High-performance sites designed to turn attention into action.", "↗"], ["02", "Web applications", "Custom platforms, portals and dashboards built around your workflow.", "◌"], ["03", "Business software", "Replace spreadsheets and manual processes with something made for you.", "⌘"], ["04", "Mobile applications", "Modern iOS and Android experiences for customers and teams.", "◫"], ["05", "AI solutions", "Intelligent automation, document processing and assistants that do real work.", "✦"], ["06", "Maintenance & support", "Reliable improvements, monitoring and support after launch.", "↻"]];
-const steps = [["01", "Understand", "We learn the business before we write a line of code."], ["02", "Design", "We shape the architecture and the experience together."], ["03", "Build", "Modern tools and AI-assisted workflows accelerate implementation."], ["04", "Test", "Functionality, security, performance and reliability are checked."], ["05", "Deploy", "Your product moves from our environment into the real world."], ["06", "Support", "We stay available for maintenance, iteration and growth."]];
+// ============================================================================
+// LIVE PRODUCTION DEMO URLS & PRIVATE DISPATCH
+// ============================================================================
+const CORENODE_DEMOS = {
+  cafe: "https://cafe-ordering-system-nine.vercel.app/",
+  gymos: "https://corenode-gymos.vercel.app/",
+  attend: "https://corenode-attend.vercel.app/",
+};
 
-export default function Home() {
-  const [submitted, setSubmitted] = useState(false);
-  function submitQuote(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSubmitted(true); }
-  return <main>
-    <SiteNav />
-    <section className="hero" id="top"><div className="hero-grid" /><div className="network" aria-hidden="true"><span className="node n1" /><span className="node n2" /><span className="node n3" /><span className="node n4" /><span className="node n5" /><span className="node n6" /><span className="line l1" /><span className="line l2" /><span className="line l3" /><span className="line l4" /><span className="line l5" /><span className="line l6" /></div><div className="hero-content"><p className="eyebrow"><span className="pulse" /> Software studio / 2026</p><h1>Software that moves<br /><em>your business forward.</em></h1><p className="hero-copy">Websites, applications, automation and AI-powered software, engineered by people who understand technology and delivered without the overhead of traditional IT firms.</p><div className="hero-actions"><a className="button button-primary" href="#quote">Get a free quote <span>↗</span></a><a className="text-link" href="#solutions">Explore our solutions <span>↓</span></a></div><p className="trust-line">Modern engineering <b>·</b> Lean teams <b>·</b> Exceptional value</p></div><div className="hero-foot"><span>Scroll to explore</span><span className="scroll-line" /></div></section>
-    <section className="intro section" id="why"><div className="section-label">01 / The CoreNode difference</div><div className="intro-copy"><h2>Why pay for a large IT team when you need <span>great software?</span></h2><p>Traditional development can mean layers of management, long cycles and costs that have little to do with the work itself.</p><p>We take a different route: senior engineering, thoughtful design and an AI-assisted workflow that keeps the team lean and the output exceptional.</p></div></section>
-    <section className="model-band"><div className="model-diagram"><div className="model-old"><span className="diagram-kicker">THE OLD MODEL</span><strong>Large teams</strong><span>Management layers</span><span>Longer cycles</span><span>Higher overhead</span></div><div className="diagram-arrow">→</div><div className="model-new"><span className="diagram-kicker">THE CORENODE MODEL</span><strong>Expert engineers</strong><span>AI-assisted development</span><span>Reusable infrastructure</span><b>Faster delivery + lower cost</b></div></div></section>
-    <section className="section solutions" id="solutions"><div className="section-heading"><div><div className="section-label">02 / What we build</div><h2>Useful software.<br /><span>Beautifully made.</span></h2></div><p>From the first idea to a dependable product in the hands of your customers.</p></div><div className="service-grid">{services.map(([number, title, copy, icon]) => <article className="service-card" key={number}><span className="card-number">{number}</span><span className="card-icon">{icon}</span><h3>{title}</h3><p>{copy}</p><span className="card-arrow">↗</span></article>)}</div></section>
-    <section className="section process" id="model"><div className="section-label">03 / How we work</div><div className="process-heading"><h2>Built <span>differently.</span></h2><p>A clear path from a business problem to software that solves it. No theatre, no mystery, no unnecessary layers.</p></div><div className="steps">{steps.map(([number, title, copy]) => <div className="step" key={number}><span className="step-number">{number}</span><div><h3>{title}</h3><p>{copy}</p></div></div>)}</div></section>
-    <section className="capabilities"><div className="section-label">04 / Our capabilities</div><div className="capability-layout"><h2>The right technology<br /><span>for the real problem.</span></h2><div className="capability-list"><div><b>Frontend</b><span>React · Next.js · responsive systems</span></div><div><b>Backend</b><span>Node.js · Python · APIs · authentication</span></div><div><b>Data & cloud</b><span>PostgreSQL · MongoDB · AWS · Docker</span></div><div><b>AI & automation</b><span>LLMs · RAG · intelligent workflows</span></div></div></div></section>
-    <section className="section services-band" id="services"><div className="section-heading"><div><div className="section-label">05 / Industry solutions</div><h2>Ready-made software<br /><span>for your industry.</span></h2></div><p>Launch-ready platforms built around how your business actually runs — starting with a complete ordering system for cafés &amp; restaurants.</p></div><div className="industry-feature"><article className="industry-card"><span className="industry-tag"><span className="pulse" /> Now live</span><span className="industry-icon">☕</span><h3>Cafés &amp; Restaurants</h3><p>QR-code table ordering, a live kitchen dashboard, online payments, loyalty and analytics — your café online in days, not months.</p><div className="industry-actions"><Link className="button button-primary" href="/services">Explore &amp; pricing <span>↗</span></Link><a className="text-link" href="https://cafe-ordering-system-nine.vercel.app/" target="_blank" rel="noopener noreferrer">View live demo <span>↗</span></a></div></article><aside className="industry-side"><p className="industry-more-label">More industries</p><ul className="industry-more"><li>Retail &amp; Kirana <span>Soon</span></li><li>Salons &amp; Clinics <span>Soon</span></li><li>Hotels &amp; Stays <span>Soon</span></li></ul><p className="industry-note">Need something custom? We build for any industry.</p></aside></div></section>
-    <section className="quote-section section" id="quote"><div className="quote-intro"><div className="section-label">06 / Start a conversation</div><h2>Professional software.<br /><span>Without the traditional IT markup.</span></h2><p>Every business is different. Tell us what you need and we&apos;ll provide a transparent quotation based on your actual requirements.</p><div className="quote-note"><span>↗</span> Free, no-obligation quotation</div></div><div className="form-wrap">{submitted ? <div className="success"><span className="success-mark">✓</span><p className="eyebrow">Request received</p><h3>We&apos;ll get back<br />to you shortly.</h3><p>Thanks for sharing what you&apos;re building. A member of our team will be in touch soon.</p><button className="text-link" onClick={() => setSubmitted(false)}>Send another request <span>↗</span></button></div> : <form onSubmit={submitQuote}><h3>Tell us what you&apos;re building.</h3><div className="form-row"><label>Name<input required name="name" placeholder="Your name" /></label><label>Company / business<input name="company" placeholder="Company name" /></label></div><div className="form-row"><label>Email<input required type="email" name="email" placeholder="you@company.com" /></label><label>Phone<input name="phone" placeholder="+91 00000 00000" /></label></div><div className="form-row"><label>Project type<select required name="type" defaultValue=""><option value="" disabled>Select one</option><option>Website</option><option>Web Application</option><option>Mobile Application</option><option>Business Software</option><option>AI Solution</option><option>Automation</option><option>Maintenance</option><option>Other</option></select></label><label>Approximate budget<select name="budget" defaultValue=""><option value="" disabled>Select one</option><option>Under ₹25,000</option><option>₹25,000 – ₹50,000</option><option>₹50,000 – ₹1,00,000</option><option>₹1,00,000 – ₹5,00,000</option><option>₹5,00,000+</option><option>Not sure yet</option></select></label></div><label>Additional requirements<textarea name="requirements" placeholder="Tell us a little about the project, goals or timeline..." rows={4} /></label><button className="button button-primary form-button" type="submit">Request my free quote <span>↗</span></button><p className="form-footnote">No spam. No obligation. Just a straightforward conversation about your project.</p></form>}</div></section>
-    <section className="contact section" id="contact"><div><div className="section-label">07 / Contact</div><h2>Let&apos;s build something <span>useful.</span></h2><p>Have an idea, a business problem, or a project that needs software? Tell us about it.</p></div><div className="contact-details"><a href="mailto:hello@corenode.in"><small>Email</small>hello@corenode.in</a><a href="tel:+917011775286"><small>Phone</small>+91 70117 75286</a><a href="https://wa.me/917011775286" target="_blank" rel="noopener noreferrer"><small>WhatsApp</small>Chat with us</a><span><small>Location</small>India / Remote</span></div></section>
-    <SiteFooter />
-  </main>;
+// Assembled privately at runtime — never displayed in the UI
+const getPrivateRecipient = () => ["tiwarigopal94", "gmail.com"].join("@");
+
+// ============================================================================
+// SCROLL-REVEAL COMPONENT (Fades & glides elements in as you scroll)
+// ============================================================================
+function ScrollReveal({
+  children,
+  delayClass = "",
+}: {
+  children: React.ReactNode;
+  delayClass?: string;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(node);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`cn-reveal ${visible ? "is-visible" : ""} ${delayClass}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+const PRODUCT_SUITE = [
+  {
+    id: "cafe-pos",
+    tabLabel: "☕ Cafe & QR Ordering",
+    badge: "Live Production Demo",
+    category: "Food & Beverage SaaS",
+    title: "Smart Cafe Website & Table QR Ordering System",
+    url: CORENODE_DEMOS.cafe,
+    isCustomBuilder: false,
+    description:
+      "Complete digital presence and floor ordering system for cafes and restaurants. Customers scan a table QR code to browse categories, view photos & prices, place orders in their cart, and track live kitchen status.",
+    highlights: [
+      "Table-specific QR ordering with interactive customer cart",
+      "Live kitchen & staff order dashboard with status tracking",
+      "Digital menu management, categories, photos, and pricing",
+      "Optional AI Chatbot & UPI payment integration for scaling outlets",
+    ],
+    ctaText: "Try Cafe Ordering Demo ↗",
+  },
+  {
+    id: "gym-os",
+    tabLabel: "🏋️ CoreNode GymOS",
+    badge: "Live Production Demo",
+    category: "Fitness & Club Management",
+    title: "CoreNode GymOS — Complete Gym Management Software",
+    url: CORENODE_DEMOS.gymos,
+    isCustomBuilder: false,
+    description:
+      "An all-in-one operating system for modern gyms, fitness studios, and trainers. Manage active memberships, billing renewals, batch schedules, trainer assignments, and member inquiries from one command center.",
+    highlights: [
+      "Member directory with plan status, expirations & fee tracking",
+      "Workout batches, trainer rosters, and attendance logs",
+      "Financial overview and automated renewal alerts",
+      "Dedicated public landing page integration for new gym inquiries",
+    ],
+    ctaText: "Try CoreNode GymOS Demo ↗",
+  },
+  {
+    id: "corenode-attend",
+    tabLabel: "📋 CoreNode Attend",
+    badge: "Live Production Demo",
+    category: "Attendance & Workforce OS",
+    title: "CoreNode Attend — Smart Attendance & Shift Management",
+    url: CORENODE_DEMOS.attend,
+    isCustomBuilder: false,
+    description:
+      "Streamlined digital attendance, shift tracking, and check-in management built for study libraries, educational institutes, offices, and growing teams.",
+    highlights: [
+      "Real-time daily check-in / check-out attendance logging",
+      "Staff, student, or member roster organization",
+      "Clean attendance history reports and status summaries",
+      "Fast web-based access across mobile phones, tablets, and desktops",
+    ],
+    ctaText: "Try CoreNode Attend Demo ↗",
+  },
+  {
+    id: "custom-software",
+    tabLabel: "⚡ Request Custom Software / App",
+    badge: "Tailored Engineering",
+    category: "Custom Web & App Studio",
+    title: "Custom Software, Web Portals & Business Applications",
+    url: "#contact",
+    isCustomBuilder: true,
+    description:
+      "Have a unique workflow or software idea that doesn't fit an off-the-shelf tool? We design and build custom web applications, internal dashboards, booking systems, and client portals tailored to your exact specifications.",
+    highlights: [
+      "Custom admin dashboards, analytics, and role-based staff portals",
+      "UPI / payment gateway, WhatsApp alerts, and custom API integrations",
+      "Inventory, billing, CRM, or appointment booking engines",
+      "Modular architecture built for your business from day one",
+    ],
+    ctaText: "Request Custom Software Quote →",
+  },
+];
+
+const CUSTOM_APP_MODULES = [
+  "📊 Admin & Analytics Dashboard",
+  "💳 UPI & Online Payments",
+  "🔐 Staff Role & Login Access",
+  "💬 Automated WhatsApp Alerts",
+  "📱 Mobile-First Customer Portal",
+  "🤖 24/7 AI Support Assistant",
+  "📦 Inventory / Catalog Manager",
+  "📅 Booking & Slot Scheduling",
+];
+
+const SAMPLE_MENU_ITEMS = [
+  { id: "item-1", name: "☕ Hazelnut Cold Coffee", price: 160, prep: "4 mins" },
+  { id: "item-2", name: "🥪 Grilled Paneer Panini", price: 210, prep: "7 mins" },
+  { id: "item-3", name: "🍟 Peri-Peri Crispy Fries", price: 130, prep: "5 mins" },
+  { id: "item-4", name: "🧋 Classic Belgian Shake", price: 190, prep: "4 mins" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is included in the ₹99 Landing Page & Customized Business Website offer?",
+    a: "You get a professionally designed, mobile-responsive landing page customized to your brand identity, showcasing your services, about section, and direct WhatsApp/call/inquiry buttons so customers can reach you immediately.",
+  },
+  {
+    q: "Do my cafe customers need to download an app to use the QR Ordering System?",
+    a: "No app download is required. Customers simply scan the QR code on their table using their phone camera, browse your live digital menu, add items to their cart, and place their order directly in the browser.",
+  },
+  {
+    q: "Can I try the Cafe Ordering, GymOS, and Attend software before inquiring?",
+    a: "Yes! Every product card on this website is connected directly to our live production demos. You can either open them in a new tab or click 'Interact Live on Page' to test them inside our fullscreen theater mode.",
+  },
+  {
+    q: "What if I need a custom software application that is different from the 3 demos?",
+    a: "We specialize in custom software development. Use our Custom Software Blueprint selector on this page or select 'Custom Software / Application Development' in the inquiry form to share your requirements.",
+  },
+];
+
+// Reusable Clickable Live Website Snapshot Component with Desktop/Mobile + Theater Mode
+function LiveWebsiteSnapshot({
+  url,
+  title,
+  height = 340,
+  allowDeviceToggle = false,
+  onOpenTheater,
+}: {
+  url: string;
+  title: string;
+  height?: number;
+  allowDeviceToggle?: boolean;
+  onOpenTheater?: (url: string, title: string) => void;
+}) {
+  const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
+
+  return (
+    <div className="cn-browser-frame">
+      <div className="cn-browser-bar">
+        <div className="cn-browser-dots">
+          <span className="cn-dot cn-dot-red" />
+          <span className="cn-dot cn-dot-amber" />
+          <span className="cn-dot cn-dot-green" />
+        </div>
+        <div className="cn-browser-url">{url}</div>
+
+        {allowDeviceToggle && (
+          <div className="cn-device-toggle">
+            <button
+              type="button"
+              onClick={() => setDevice("desktop")}
+              className={`cn-device-btn ${
+                device === "desktop" ? "active" : ""
+              }`}
+            >
+              🖥️ Desktop
+            </button>
+            <button
+              type="button"
+              onClick={() => setDevice("mobile")}
+              className={`cn-device-btn ${device === "mobile" ? "active" : ""}`}
+            >
+              📱 Mobile
+            </button>
+          </div>
+        )}
+
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: "11.5px",
+            fontWeight: 800,
+            color: "#2563eb",
+            flexShrink: 0,
+          }}
+        >
+          New Tab ↗
+        </a>
+      </div>
+
+      <div className="cn-browser-viewport" style={{ height: `${height}px` }}>
+        {device === "desktop" ? (
+          <iframe
+            src={url}
+            title={title}
+            className="cn-browser-iframe"
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin"
+          />
+        ) : (
+          <div className="cn-mobile-bezel">
+            <iframe
+              src={url}
+              title={`${title} Mobile Preview`}
+              className="cn-mobile-iframe"
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+            />
+          </div>
+        )}
+
+        <div className="cn-browser-overlay">
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ flex: 1 }}
+          >
+            <div
+              style={{
+                fontSize: "11px",
+                fontWeight: 700,
+                color: "#93c5fd",
+                textTransform: "uppercase",
+              }}
+            >
+              Live Production App
+            </div>
+            <div style={{ fontSize: "15px", fontWeight: 800, color: "#ffffff" }}>
+              {title}
+            </div>
+          </a>
+
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            {onOpenTheater && (
+              <button
+                type="button"
+                onClick={() => onOpenTheater(url, title)}
+                className="cn-theater-pill"
+              >
+                ⚡ Interact Here
+              </button>
+            )}
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cn-launch-pill"
+            >
+              Try Demo ↗
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  // Cycling Hero Industry Words
+  const heroIndustries = [
+    "Cafes & Restaurants",
+    "Gyms & Fitness Clubs",
+    "Study Libraries",
+    "Growing Local Brands",
+  ];
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % heroIndustries.length);
+    }, 2600);
+    return () => clearInterval(timer);
+  }, [heroIndustries.length]);
+
+  // Active Product Tab
+  const [activeProductId, setActiveProductId] = useState(PRODUCT_SUITE[0].id);
+  const activeProduct =
+    PRODUCT_SUITE.find((p) => p.id === activeProductId) || PRODUCT_SUITE[0];
+
+  // Interactive Live QR -> Kitchen Simulator State
+  const [simCart, setSimCart] = useState<
+    { name: string; price: number; qty: number }[]
+  >([
+    { name: "☕ Hazelnut Cold Coffee", price: 160, qty: 2 },
+    { name: "🥪 Grilled Paneer Panini", price: 210, qty: 1 },
+  ]);
+  const [kotStatus, setKotStatus] = useState<
+    "New Table Order" | "Kitchen Preparing" | "Ready to Serve"
+  >("New Table Order");
+
+  const addToSimCart = (item: { name: string; price: number }) => {
+    setSimCart((prev) => {
+      const existing = prev.find((i) => i.name === item.name);
+      if (existing) {
+        return prev.map((i) =>
+          i.name === item.name ? { ...i, qty: i.qty + 1 } : i
+        );
+      }
+      return [...prev, { name: item.name, price: item.price, qty: 1 }];
+    });
+    setKotStatus("New Table Order");
+  };
+
+  const cycleKotStatus = () => {
+    if (kotStatus === "New Table Order") setKotStatus("Kitchen Preparing");
+    else if (kotStatus === "Kitchen Preparing") setKotStatus("Ready to Serve");
+    else setKotStatus("New Table Order");
+  };
+
+  const simTotal = simCart.reduce((acc, i) => acc + i.price * i.qty, 0);
+
+  // Interactive Custom Software Blueprint State (For the 4th Option)
+  const [selectedModules, setSelectedModules] = useState<string[]>([
+    "📊 Admin & Analytics Dashboard",
+    "💳 UPI & Online Payments",
+    "📱 Mobile-First Customer Portal",
+  ]);
+
+  const toggleModule = (mod: string) => {
+    setSelectedModules((prev) =>
+      prev.includes(mod) ? prev.filter((m) => m !== mod) : [...prev, mod]
+    );
+  };
+
+  // Fullscreen Theater Modal State
+  const [theaterApp, setTheaterApp] = useState<{
+    url: string;
+    title: string;
+  } | null>(null);
+
+  // FAQ Accordion State
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  // Contact Form State (Email address kept hidden from UI)
+  const [name, setName] = useState("");
+  const [business, setBusiness] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState(
+    "₹99 Landing Page & Customized Business Website Offer"
+  );
+  const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<string | null>(null);
+
+  const handleSelectPlanAndScroll = (planName: string, prefillMsg?: string) => {
+    setSelectedPlan(planName);
+    if (prefillMsg) {
+      setMessage(prefillMsg);
+    }
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleCustomBlueprintSubmit = () => {
+    const modsText =
+      selectedModules.length > 0
+        ? `Requested Custom Modules: ${selectedModules.join(", ")}. `
+        : "";
+    handleSelectPlanAndScroll(
+      "Custom Software / Application Development",
+      `${modsText}We are looking to build a custom software application for our business.`
+    );
+  };
+
+  const handleInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitStatus(null);
+
+    const recipient = getPrivateRecipient();
+    const subject = `New CoreNode Inquiry: ${selectedPlan} - ${
+      business || name
+    }`;
+    const formattedBody = `Name: ${name}\nBusiness Name: ${
+      business || "N/A"
+    }\nPhone / Email: ${contactInfo}\nSelected Plan / Product: ${selectedPlan}\n\nProject Details:\n${
+      message || "Interested in getting started."
+    }`;
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${recipient}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          business: business || "N/A",
+          contact: contactInfo,
+          service_or_plan: selectedPlan,
+          message: message || "Interested in getting started.",
+          _subject: subject,
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus(
+          "Thank you! Your project inquiry has been dispatched to our engineering team."
+        );
+        setName("");
+        setBusiness("");
+        setContactInfo("");
+        setMessage("");
+      } else {
+        window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
+          subject
+        )}&body=${encodeURIComponent(formattedBody)}`;
+      }
+    } catch {
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(formattedBody)}`;
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div>
+      <SiteNav />
+
+      <main>
+        {/* ================================================================
+            SECTION B: HERO SECTION WITH CYCLING TEXT & LIVE SNAPSHOT
+            ================================================================ */}
+        <section className="cn-hero">
+          <div className="cn-container">
+            <div className="cn-hero-grid">
+              {/* Left Column */}
+              <ScrollReveal>
+                <div className="cn-eyebrow">
+                  <span>●</span> SaaS Products, QR Ordering & Custom Software Studio
+                </div>
+                <h1 className="cn-h1">
+                  Smart Software & Websites Built for{" "}
+                  <span className="cn-gradient-word">
+                    {heroIndustries[wordIndex]}
+                  </span>
+                </h1>
+                <p className="cn-lead" style={{ marginBottom: "28px" }}>
+                  From our <strong>₹99 Customized Business Website</strong> launch offer to live production SaaS platforms—<strong>Cafe QR Ordering</strong>, <strong>CoreNode GymOS</strong>, <strong>CoreNode Attend</strong>, and <strong>Tailored Custom Applications</strong>—we build technology that runs your floor.
+                </p>
+
+                <div className="cn-btn-row">
+                  <a href="#pricing" className="cn-btn-primary">
+                    View ₹99 Offer & Pricing Plans →
+                  </a>
+                  <a href="#interactive-simulator" className="cn-btn-secondary">
+                    Try Interactive Workflow Simulator
+                  </a>
+                </div>
+
+                {/* 4 Quick Action Pills (3 Live Demos + 1 Custom Software Request) */}
+                <div
+                  style={{
+                    marginTop: "28px",
+                    paddingTop: "20px",
+                    borderTop: "1px solid #e2e8f0",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 800,
+                      color: "#64748b",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Instant Demos:
+                  </span>
+                  <a
+                    href={CORENODE_DEMOS.cafe}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cn-badge-blue"
+                  >
+                    ☕ Cafe QR Ordering ↗
+                  </a>
+                  <a
+                    href={CORENODE_DEMOS.gymos}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cn-badge-blue"
+                  >
+                    🏋️ CoreNode GymOS ↗
+                  </a>
+                  <a
+                    href={CORENODE_DEMOS.attend}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cn-badge-blue"
+                  >
+                    📋 CoreNode Attend ↗
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSelectPlanAndScroll(
+                        "Custom Software / Application Development"
+                      )
+                    }
+                    className="cn-badge-purple"
+                    style={{ border: "none", cursor: "pointer" }}
+                  >
+                    ⚡ Request Custom App →
+                  </button>
+                </div>
+              </ScrollReveal>
+
+              {/* Right Column: Live Snapshot with Desktop/Mobile + Theater Mode */}
+              <ScrollReveal delayClass="cn-delay-1">
+                <div className="cn-float">
+                  <LiveWebsiteSnapshot
+                    url={CORENODE_DEMOS.cafe}
+                    title="Cafe & QR Ordering System"
+                    height={370}
+                    allowDeviceToggle={true}
+                    onOpenTheater={(url, title) => setTheaterApp({ url, title })}
+                  />
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            OUT-OF-THE-BOX UPGRADE: INTERACTIVE QR -> KITCHEN SIMULATOR
+            ================================================================ */}
+        <section id="interactive-simulator" className="cn-section-white">
+          <div className="cn-container">
+            <ScrollReveal>
+              <div className="cn-section-header">
+                <div className="cn-eyebrow">Experience the Workflow</div>
+                <h2 className="cn-h2">
+                  See How CoreNode Connects Customers to Your Staff in Real Time
+                </h2>
+                <p className="cn-lead">
+                  Tap any item on the simulated <strong>Customer Table Phone</strong> on the left and watch the <strong>Live Kitchen Order Ticket (KOT)</strong> update instantly on the right.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delayClass="cn-delay-1">
+              <div className="cn-sim-grid">
+                {/* Left: Customer QR Menu Tap Simulator */}
+                <div className="cn-sim-phone">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      borderBottom: "1px solid #e2e8f0",
+                      paddingBottom: "12px",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    <div>
+                      <span
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 800,
+                          color: "#2563eb",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        📱 Table #04 • QR Scan View
+                      </span>
+                      <h3 style={{ fontSize: "17px", fontWeight: 800 }}>
+                        Tap an Item to Add to Order
+                      </h3>
+                    </div>
+                    <span className="cn-badge-green">Interactive</span>
+                  </div>
+
+                  {SAMPLE_MENU_ITEMS.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => addToSimCart(item)}
+                      className="cn-sim-item-btn"
+                    >
+                      <div>
+                        <div
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 700,
+                            color: "#0f172a",
+                          }}
+                        >
+                          {item.name}
+                        </div>
+                        <div style={{ fontSize: "11.5px", color: "#64748b" }}>
+                          Avg prep: {item.prep}
+                        </div>
+                      </div>
+                      <span
+                        style={{
+                          backgroundColor: "#2563eb",
+                          color: "#ffffff",
+                          fontSize: "12px",
+                          fontWeight: 800,
+                          padding: "6px 12px",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        + ₹{item.price}
+                      </span>
+                    </button>
+                  ))}
+
+                  <button
+                    type="button"
+                    onClick={() => setSimCart([])}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "#64748b",
+                      cursor: "pointer",
+                      marginTop: "4px",
+                    }}
+                  >
+                    ↺ Reset Sample Order
+                  </button>
+                </div>
+
+                {/* Right: Live Staff / Kitchen Dashboard Ticket */}
+                <div className="cn-sim-kot">
+                  <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "10px",
+                        borderBottom: "1px solid #334155",
+                        paddingBottom: "14px",
+                        marginBottom: "16px",
+                      }}
+                    >
+                      <div>
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 800,
+                            color: "#38bdf8",
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          🖥️ Live Staff / Kitchen Dashboard
+                        </span>
+                        <h3
+                          style={{
+                            fontSize: "19px",
+                            fontWeight: 800,
+                            color: "#ffffff",
+                          }}
+                        >
+                          Active Ticket • Table #04
+                        </h3>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={cycleKotStatus}
+                        style={{
+                          backgroundColor:
+                            kotStatus === "Ready to Serve"
+                              ? "#10b981"
+                              : kotStatus === "Kitchen Preparing"
+                              ? "#f59e0b"
+                              : "#2563eb",
+                          color: "#ffffff",
+                          border: "none",
+                          padding: "7px 14px",
+                          borderRadius: "999px",
+                          fontSize: "12px",
+                          fontWeight: 800,
+                          cursor: "pointer",
+                        }}
+                      >
+                        Status: {kotStatus} (Click to Advance ↻)
+                      </button>
+                    </div>
+
+                    {simCart.length === 0 ? (
+                      <p
+                        style={{
+                          color: "#94a3b8",
+                          fontSize: "14px",
+                          padding: "24px 0",
+                        }}
+                      >
+                        No items in ticket yet. Tap any menu item on the left!
+                      </p>
+                    ) : (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "10px",
+                        }}
+                      >
+                        {simCart.map((c) => (
+                          <div
+                            key={c.name}
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              backgroundColor: "rgba(255,255,255,0.05)",
+                              padding: "10px 14px",
+                              borderRadius: "10px",
+                              fontSize: "14px",
+                            }}
+                          >
+                            <span>
+                              <strong>{c.qty}x</strong> {c.name}
+                            </span>
+                            <span style={{ fontWeight: 700, color: "#93c5fd" }}>
+                              ₹{c.price * c.qty}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: "22px",
+                      paddingTop: "16px",
+                      borderTop: "1px solid #334155",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: "12px", color: "#94a3b8" }}>
+                        Live Bill Total
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "24px",
+                          fontWeight: 900,
+                          color: "#fde047",
+                        }}
+                      >
+                        ₹{simTotal}
+                      </div>
+                    </div>
+
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <a
+                        href={CORENODE_DEMOS.cafe}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cn-btn-primary"
+                      >
+                        Launch Full Live Cafe Demo ↗
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ================================================================
+            INTERACTIVE PRODUCT SUITE (3 LIVE DEMOS + 4TH CUSTOM APP BUILDER)
+            ================================================================ */}
+        <section id="live-products" className="cn-section-soft">
+          <div className="cn-container">
+            <ScrollReveal>
+              <div className="cn-section-header">
+                <div className="cn-eyebrow">
+                  Live SaaS Suite & Custom Engineering
+                </div>
+                <h2 className="cn-h2">
+                  Test-Drive Our 3 Live Products or Configure a Custom Application
+                </h2>
+                <p className="cn-lead">
+                  Switch between our live production SaaS demos or select{" "}
+                  <strong>Request Custom Software / App</strong> to build a tailored tool for your workflow.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            {/* 4 Product Switcher Tabs */}
+            <ScrollReveal delayClass="cn-delay-1">
+              <div className="cn-tools-tabs" role="tablist">
+                {PRODUCT_SUITE.map((prod) => (
+                  <button
+                    key={prod.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeProductId === prod.id}
+                    className={`cn-tool-tab ${
+                      activeProductId === prod.id ? "active" : ""
+                    }`}
+                    onClick={() => setActiveProductId(prod.id)}
+                  >
+                    {prod.tabLabel}
+                  </button>
+                ))}
+              </div>
+            </ScrollReveal>
+
+            {/* Active Stage */}
+            <ScrollReveal delayClass="cn-delay-2">
+              <div className="cn-tool-stage">
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    <span
+                      className={
+                        activeProduct.isCustomBuilder
+                          ? "cn-badge-purple"
+                          : "cn-badge-green"
+                      }
+                    >
+                      {activeProduct.badge}
+                    </span>
+                    <span className="cn-badge-blue">
+                      {activeProduct.category}
+                    </span>
+                  </div>
+
+                  <h3 className="cn-h2" style={{ fontSize: "1.9rem" }}>
+                    {activeProduct.title}
+                  </h3>
+                  <p className="cn-lead" style={{ marginTop: "10px" }}>
+                    {activeProduct.description}
+                  </p>
+
+                  <ul className="cn-benefit-list">
+                    {activeProduct.highlights.map((item) => (
+                      <li key={item} className="cn-benefit-item">
+                        <span className="cn-benefit-icon">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="cn-btn-row">
+                    {activeProduct.isCustomBuilder ? (
+                      <button
+                        type="button"
+                        onClick={handleCustomBlueprintSubmit}
+                        className="cn-btn-primary"
+                      >
+                        {activeProduct.ctaText}
+                      </button>
+                    ) : (
+                      <>
+                        <a
+                          href={activeProduct.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cn-btn-primary"
+                        >
+                          {activeProduct.ctaText}
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setTheaterApp({
+                              url: activeProduct.url,
+                              title: activeProduct.title,
+                            })
+                          }
+                          className="cn-btn-secondary"
+                        >
+                          ⚡ Interact Live on Page
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Right Column: Live Snapshot OR Interactive Custom App Blueprint Builder */}
+                <div>
+                  {!activeProduct.isCustomBuilder ? (
+                    <LiveWebsiteSnapshot
+                      url={activeProduct.url}
+                      title={activeProduct.title}
+                      height={360}
+                      allowDeviceToggle={true}
+                      onOpenTheater={(url, title) =>
+                        setTheaterApp({ url, title })
+                      }
+                    />
+                  ) : (
+                    <div className="cn-blueprint-card">
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          borderBottom: "1px solid #334155",
+                          paddingBottom: "14px",
+                        }}
+                      >
+                        <div>
+                          <span
+                            style={{
+                              fontSize: "11px",
+                              fontWeight: 800,
+                              color: "#38bdf8",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Interactive Architecture Builder
+                          </span>
+                          <h4
+                            style={{
+                              fontSize: "18px",
+                              fontWeight: 800,
+                              color: "#ffffff",
+                              marginTop: "2px",
+                            }}
+                          >
+                            Select Modules for Your Custom App
+                          </h4>
+                        </div>
+                        <span className="cn-badge-purple">
+                          {selectedModules.length} Selected
+                        </span>
+                      </div>
+
+                      <p
+                        style={{
+                          fontSize: "13px",
+                          color: "#94a3b8",
+                          marginTop: "12px",
+                        }}
+                      >
+                        Click the features you need below, then click the button to pre-fill your custom software inquiry:
+                      </p>
+
+                      <div className="cn-module-grid">
+                        {CUSTOM_APP_MODULES.map((mod) => {
+                          const isSelected = selectedModules.includes(mod);
+                          return (
+                            <button
+                              key={mod}
+                              type="button"
+                              onClick={() => toggleModule(mod)}
+                              className={`cn-module-chip ${
+                                isSelected ? "selected" : ""
+                              }`}
+                            >
+                              <span>{mod}</span>
+                              <span
+                                style={{
+                                  fontWeight: 900,
+                                  color: isSelected ? "#60a5fa" : "#64748b",
+                                }}
+                              >
+                                {isSelected ? "✓" : "+"}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleCustomBlueprintSubmit}
+                        className="cn-btn-primary"
+                        style={{ width: "100%", marginTop: "8px" }}
+                      >
+                        Request Custom App With {selectedModules.length} Selected Modules →
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION E: 4-CARD SHOWCASE (3 LIVE DEMOS + 1 CUSTOM SOFTWARE CARD)
+            ================================================================ */}
+        <section id="portfolio" className="cn-section-white">
+          <div className="cn-container">
+            <ScrollReveal>
+              <div className="cn-section-header">
+                <div className="cn-eyebrow">Live Demos & Custom Engineering</div>
+                <h2 className="cn-h2">
+                  Click Any Live Product Below or Request a Custom Application
+                </h2>
+                <p className="cn-lead">
+                  Every preview window below renders our live deployed software. Click to open in a new tab or launch fullscreen theater mode.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="cn-grid-2">
+              {PRODUCT_SUITE.map((product, index) => (
+                <ScrollReveal
+                  key={product.id}
+                  delayClass={index % 2 === 1 ? "cn-delay-1" : ""}
+                >
+                  <div
+                    className="cn-card"
+                    style={{ padding: "20px", height: "100%" }}
+                  >
+                    <div>
+                      {!product.isCustomBuilder ? (
+                        <LiveWebsiteSnapshot
+                          url={product.url}
+                          title={product.tabLabel}
+                          height={240}
+                          onOpenTheater={(url, title) =>
+                            setTheaterApp({ url, title })
+                          }
+                        />
+                      ) : (
+                        <div
+                          className="cn-blueprint-card"
+                          style={{
+                            minHeight: "282px",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <div>
+                            <span className="cn-badge-purple">
+                              Custom Software Studio
+                            </span>
+                            <h4
+                              style={{
+                                fontSize: "20px",
+                                fontWeight: 800,
+                                color: "#ffffff",
+                                marginTop: "12px",
+                              }}
+                            >
+                              Need a Custom Web App, CRM, Portal, or SaaS Product?
+                            </h4>
+                            <p
+                              style={{
+                                fontSize: "13.5px",
+                                color: "#cbd5e1",
+                                marginTop: "8px",
+                                lineHeight: 1.6,
+                              }}
+                            >
+                              We design and engineer custom software around your business workflow—complete with admin panels, databases, payment gateways, and mobile-ready interfaces.
+                            </p>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: "8px",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <span className="cn-badge-blue">Admin Portals</span>
+                            <span className="cn-badge-blue">Booking Engines</span>
+                            <span className="cn-badge-blue">Custom Workflows</span>
+                            <span className="cn-badge-blue">AI Automation</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div style={{ padding: "20px 6px 12px 6px" }}>
+                        <span
+                          className={
+                            product.isCustomBuilder
+                              ? "cn-badge-purple"
+                              : "cn-badge-green"
+                          }
+                        >
+                          {product.category}
+                        </span>
+                        <h3
+                          className="cn-h3"
+                          style={{ marginTop: "10px", fontSize: "1.3rem" }}
+                        >
+                          {product.title}
+                        </h3>
+                        <p
+                          className="cn-lead"
+                          style={{ fontSize: "14px", marginBottom: "18px" }}
+                        >
+                          {product.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div style={{ padding: "0 6px 6px 6px" }}>
+                      {!product.isCustomBuilder ? (
+                        <a
+                          href={product.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cn-btn-primary"
+                          style={{ width: "100%" }}
+                        >
+                          Try Live Demo ↗
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleSelectPlanAndScroll(
+                              "Custom Software / Application Development"
+                            )
+                          }
+                          className="cn-btn-primary"
+                          style={{
+                            width: "100%",
+                            backgroundColor: "#0f172a",
+                            borderColor: "#0f172a",
+                          }}
+                        >
+                          Request Custom Software / App →
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION F: UPGRADED ₹99 POSTER + 3 TRANSPARENT PRICING PLANS
+            ================================================================ */}
+        <section id="pricing" className="cn-section-dark">
+          <div className="cn-container">
+            {/* 1. HIGH-IMPACT ₹99 INTRODUCTORY LAUNCH POSTER */}
+            <ScrollReveal>
+              <div id="offer-99" className="cn-poster-99">
+                <div>
+                  <div className="cn-poster-badge">
+                    <span>⚡ LIMITED-TIME LAUNCH SPECIAL</span>
+                  </div>
+                  <h2
+                    style={{
+                      fontSize: "clamp(1.9rem, 3.4vw, 2.75rem)",
+                      fontWeight: 900,
+                      lineHeight: 1.15,
+                      color: "#ffffff",
+                      marginBottom: "14px",
+                    }}
+                  >
+                    Get Your Custom Landing Page & Business Website for Just ₹99
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      color: "#dbeafe",
+                      lineHeight: 1.65,
+                      marginBottom: "24px",
+                      maxWidth: "620px",
+                    }}
+                  >
+                    Want to get your business online right away? Launch a clean, mobile-responsive landing page and customized business website tailored to your brand identity for a one-time introductory offer of <strong>₹99</strong>.
+                  </p>
+
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns:
+                        "repeat(auto-fit, minmax(220px, 1fr))",
+                      gap: "12px",
+                    }}
+                  >
+                    {[
+                      "Custom Brand & Service Showcase",
+                      "Mobile & Desktop Responsive UI",
+                      "Direct WhatsApp & Call Lead Buttons",
+                      "Fast Cloud Hosting Setup",
+                    ].map((perk) => (
+                      <div
+                        key={perk}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "10px",
+                          fontSize: "14px",
+                          fontWeight: 600,
+                          color: "#ffffff",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: "22px",
+                            height: "22px",
+                            borderRadius: "50%",
+                            backgroundColor: "rgba(250, 204, 21, 0.2)",
+                            color: "#fde047",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: 900,
+                            fontSize: "12px",
+                          }}
+                        >
+                          ✓
+                        </span>
+                        <span>{perk}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="cn-poster-price-card">
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      color: "#fde047",
+                    }}
+                  >
+                    Starter Web Offer
+                  </div>
+                  <div className="cn-poster-price-big">₹99</div>
+                  <div
+                    style={{
+                      fontSize: "13.5px",
+                      color: "#e2e8f0",
+                      marginBottom: "22px",
+                    }}
+                  >
+                    Landing Page & Customized Business Website
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSelectPlanAndScroll(
+                        "₹99 Landing Page & Customized Business Website Offer"
+                      )
+                    }
+                    className="cn-btn-orange"
+                    style={{
+                      backgroundColor: "#eab308",
+                      color: "#0f172a !important",
+                      fontWeight: 900,
+                    }}
+                  >
+                    Claim ₹99 Website Offer ↗
+                  </button>
+                  <div
+                    style={{
+                      fontSize: "11.5px",
+                      color: "#cbd5e1",
+                      marginTop: "12px",
+                    }}
+                  >
+                    Direct consultation • Clear scope before launch
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* 2. FULL SAAS PRICING PLANS */}
+            <ScrollReveal>
+              <div
+                className="cn-section-header"
+                style={{ marginBottom: "56px" }}
+              >
+                <div className="cn-eyebrow-dark">05 / PRICING</div>
+                <h2
+                  className="cn-h2"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "clamp(2.2rem, 4vw, 3.25rem)",
+                  }}
+                >
+                  Simple, transparent pricing.
+                </h2>
+                <p className="cn-lead-dark">
+                  A one-time setup, then a low monthly fee. No lock-in, no hidden costs.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="cn-pricing-grid">
+              {/* PLAN 1: DIGITAL PRESENCE */}
+              <ScrollReveal>
+                <div
+                  className="cn-pricing-card-light"
+                  style={{ height: "100%" }}
+                >
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: "1.45rem",
+                        fontWeight: 800,
+                        color: "#10b981",
+                      }}
+                    >
+                      Digital Presence
+                    </h3>
+                    <div className="cn-plan-setup-label">ONE-TIME SETUP</div>
+                    <div className="cn-plan-price" style={{ color: "#0f172a" }}>
+                      ₹999
+                    </div>
+                    <div className="cn-plan-monthly">then ₹499 / month</div>
+                    <p className="cn-plan-tagline">
+                      Get your café online for ₹499/month.
+                    </p>
+
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 700,
+                        color: "#475569",
+                      }}
+                    >
+                      Everything you need to get online:
+                    </div>
+
+                    <ul className="cn-plan-features">
+                      {[
+                        "Professional café website",
+                        "Digital menu & categories",
+                        "Photos & prices",
+                        "About section & location",
+                        "Contact / WhatsApp button",
+                        "Mobile responsive & SSL",
+                      ].map((feat) => (
+                        <li key={feat} className="cn-plan-feature-item">
+                          <span style={{ color: "#10b981", fontWeight: 900 }}>
+                            ✓
+                          </span>
+                          <span style={{ color: "#334155" }}>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSelectPlanAndScroll(
+                        "Digital Presence Plan (₹999 setup + ₹499/mo)"
+                      )
+                    }
+                    className="cn-btn-emerald"
+                  >
+                    Get started ↗
+                  </button>
+                </div>
+              </ScrollReveal>
+
+              {/* PLAN 2: SMART ORDERING (MOST POPULAR) */}
+              <ScrollReveal delayClass="cn-delay-1">
+                <div
+                  className="cn-pricing-card-popular"
+                  style={{ height: "100%" }}
+                >
+                  <div className="cn-popular-pill">★ MOST POPULAR</div>
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: "1.45rem",
+                        fontWeight: 800,
+                        color: "#2563eb",
+                      }}
+                    >
+                      Smart Ordering
+                    </h3>
+                    <div className="cn-plan-setup-label">ONE-TIME SETUP</div>
+                    <div className="cn-plan-price" style={{ color: "#0f172a" }}>
+                      ₹7,499
+                    </div>
+                    <div className="cn-plan-monthly">then ₹999 / month</div>
+                    <p className="cn-plan-tagline">
+                      QR ordering that runs your whole floor.
+                    </p>
+
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        color: "#0f172a",
+                      }}
+                    >
+                      Everything in Digital Presence, plus:
+                    </div>
+
+                    <ul className="cn-plan-features">
+                      {[
+                        "Table-specific QR ordering",
+                        "Customer cart & placement",
+                        "Live kitchen / staff dashboard",
+                        "Order status tracking",
+                        "Table & menu management",
+                        "Basic sales dashboard",
+                      ].map((feat) => (
+                        <li key={feat} className="cn-plan-feature-item">
+                          <span style={{ color: "#2563eb", fontWeight: 900 }}>
+                            ✓
+                          </span>
+                          <span style={{ color: "#334155" }}>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="cn-free-website-box">
+                      🎁 Free website — normally ₹499/mo, included.
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        handleSelectPlanAndScroll(
+                          "Smart Ordering Plan (₹7,499 setup + ₹999/mo)"
+                        )
+                      }
+                      className="cn-btn-primary"
+                      style={{ width: "100%", padding: "15px 24px" }}
+                    >
+                      Choose Smart Ordering ↗
+                    </button>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              {/* PLAN 3: BUSINESS PRO */}
+              <ScrollReveal delayClass="cn-delay-2">
+                <div
+                  className="cn-pricing-card-dark"
+                  style={{ height: "100%" }}
+                >
+                  <div>
+                    <h3
+                      style={{
+                        fontSize: "1.45rem",
+                        fontWeight: 800,
+                        color: "#f97316",
+                      }}
+                    >
+                      Business Pro
+                    </h3>
+                    <div className="cn-plan-setup-label">ONE-TIME SETUP</div>
+                    <div className="cn-plan-price" style={{ color: "#ffffff" }}>
+                      ₹12,999
+                    </div>
+                    <div
+                      className="cn-plan-monthly"
+                      style={{ color: "#94a3b8" }}
+                    >
+                      then ₹1,499 / month
+                    </div>
+                    <p className="cn-plan-tagline-dark">
+                      Everything to scale — now with AI built in.
+                    </p>
+
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        color: "#ffffff",
+                      }}
+                    >
+                      Everything in Smart Ordering, plus:
+                    </div>
+
+                    <ul className="cn-plan-features">
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>Payments:</strong>{" "}
+                          UPI / online integration, receipts
+                        </span>
+                      </li>
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>Customer:</strong>{" "}
+                          Loyalty system, coupons, database
+                        </span>
+                      </li>
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>
+                            Analytics:
+                          </strong>{" "}
+                          Advanced sales, daily reports
+                        </span>
+                      </li>
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>Staff:</strong>{" "}
+                          Permissions, item availability
+                        </span>
+                      </li>
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>
+                            AI Chatbot:
+                          </strong>{" "}
+                          24/7 ordering & support assistant
+                          <span className="cn-new-badge">NEW</span>
+                        </span>
+                      </li>
+                      <li className="cn-plan-feature-item">
+                        <span style={{ color: "#f97316", fontWeight: 900 }}>
+                          ✓
+                        </span>
+                        <span style={{ color: "#cbd5e1" }}>
+                          <strong style={{ color: "#ffffff" }}>Support:</strong>{" "}
+                          Priority support routing
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleSelectPlanAndScroll(
+                        "Business Pro Plan (₹12,999 setup + ₹1,499/mo)"
+                      )
+                    }
+                    className="cn-btn-orange"
+                  >
+                    Go Business Pro ↗
+                  </button>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================
+            FAQ SECTION WITH SCROLL REVEAL
+            ================================================================ */}
+        <section id="why-corenode" className="cn-section-white">
+          <div className="cn-container">
+            <ScrollReveal>
+              <div className="cn-section-header">
+                <div className="cn-eyebrow">Common Questions</div>
+                <h2 className="cn-h2">Frequently Asked Questions</h2>
+                <p className="cn-lead">
+                  Everything you need to know about our live software products, the ₹99 website offer, and custom development.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delayClass="cn-delay-1">
+              <div className="cn-faq-list">
+                {FAQ_ITEMS.map((faq, index) => {
+                  const isOpen = openFaqIndex === index;
+                  return (
+                    <div key={faq.q} className="cn-faq-item">
+                      <button
+                        type="button"
+                        className="cn-faq-question"
+                        onClick={() =>
+                          setOpenFaqIndex(isOpen ? null : index)
+                        }
+                      >
+                        <span>{faq.q}</span>
+                        <span
+                          style={{
+                            fontSize: "18px",
+                            fontWeight: 900,
+                            color: "#2563eb",
+                          }}
+                        >
+                          {isOpen ? "−" : "+"}
+                        </span>
+                      </button>
+                      {isOpen && <div className="cn-faq-answer">{faq.a}</div>}
+                    </div>
+                  );
+                })}
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* ================================================================
+            SECTION J: PROJECT INQUIRY FORM (EMAIL HIDDEN FROM UI)
+            ================================================================ */}
+        <section id="contact" className="cn-section-dark">
+          <div className="cn-container">
+            <div className="cn-contact-grid">
+              <ScrollReveal>
+                <div>
+                  <div className="cn-eyebrow-dark">Direct Consultation</div>
+                  <h2 className="cn-h2" style={{ color: "#ffffff" }}>
+                    Ready to Launch Your Website or Custom Software?
+                  </h2>
+                  <p className="cn-lead-dark" style={{ marginBottom: "28px" }}>
+                    Submit your project details using the form and our engineering team will review your requirements and reach out to you directly.
+                  </p>
+
+                  <div
+                    style={{
+                      backgroundColor: "#0b1324",
+                      border: "1px solid #1e293b",
+                      borderRadius: "18px",
+                      padding: "24px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 800,
+                        textTransform: "uppercase",
+                        color: "#38bdf8",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      Quick Links to Our Solutions
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                        fontSize: "14px",
+                      }}
+                    >
+                      <a
+                        href={CORENODE_DEMOS.cafe}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#60a5fa", fontWeight: 600 }}
+                      >
+                        ☕ Launch Cafe & QR Ordering Live Demo ↗
+                      </a>
+                      <a
+                        href={CORENODE_DEMOS.gymos}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#60a5fa", fontWeight: 600 }}
+                      >
+                        🏋️ Launch CoreNode GymOS Live Demo ↗
+                      </a>
+                      <a
+                        href={CORENODE_DEMOS.attend}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#60a5fa", fontWeight: 600 }}
+                      >
+                        📋 Launch CoreNode Attend Live Demo ↗
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setSelectedPlan(
+                            "Custom Software / Application Development"
+                          )
+                        }
+                        style={{
+                          background: "none",
+                          border: "none",
+                          padding: 0,
+                          textAlign: "left",
+                          color: "#c084fc",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                          fontSize: "14px",
+                        }}
+                      >
+                        ⚡ Select Custom Software / Application Request →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              {/* Project Inquiry Form (Private recipient behind the scenes) */}
+              <ScrollReveal delayClass="cn-delay-1">
+                <div className="cn-form-card">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      borderBottom: "1px solid #e2e8f0",
+                      paddingBottom: "14px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <div>
+                      <h3 className="cn-h3" style={{ marginBottom: "2px" }}>
+                        Send Project Inquiry
+                      </h3>
+                      <p style={{ fontSize: "12.5px", color: "#64748b" }}>
+                        Routes directly to the CoreNode project team.
+                      </p>
+                    </div>
+                    <span className="cn-badge-green">Direct Dispatch</span>
+                  </div>
+
+                  <form onSubmit={handleInquirySubmit}>
+                    <div className="cn-form-row">
+                      <div className="cn-field" style={{ marginBottom: 0 }}>
+                        <label htmlFor="inq-name" className="cn-label">
+                          Your Name *
+                        </label>
+                        <input
+                          id="inq-name"
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Enter your full name"
+                          className="cn-input"
+                        />
+                      </div>
+
+                      <div className="cn-field" style={{ marginBottom: 0 }}>
+                        <label htmlFor="inq-business" className="cn-label">
+                          Business Name
+                        </label>
+                        <input
+                          id="inq-business"
+                          type="text"
+                          value={business}
+                          onChange={(e) => setBusiness(e.target.value)}
+                          placeholder="e.g., Aroma Cafe / Iron Gym"
+                          className="cn-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="cn-form-row">
+                      <div className="cn-field" style={{ marginBottom: 0 }}>
+                        <label htmlFor="inq-contact" className="cn-label">
+                          Phone Number or Email *
+                        </label>
+                        <input
+                          id="inq-contact"
+                          type="text"
+                          required
+                          value={contactInfo}
+                          onChange={(e) => setContactInfo(e.target.value)}
+                          placeholder="Your WhatsApp number or email"
+                          className="cn-input"
+                        />
+                      </div>
+
+                      <div className="cn-field" style={{ marginBottom: 0 }}>
+                        <label htmlFor="inq-plan" className="cn-label">
+                          Selected Plan or Product
+                        </label>
+                        <select
+                          id="inq-plan"
+                          value={selectedPlan}
+                          onChange={(e) => setSelectedPlan(e.target.value)}
+                          className="cn-select"
+                        >
+                          <option value="₹99 Landing Page & Customized Business Website Offer">
+                            ₹99 Landing Page & Customized Business Website Offer
+                          </option>
+                          <option value="Digital Presence Plan (₹999 setup + ₹499/mo)">
+                            Digital Presence Plan (₹999 setup + ₹499/mo)
+                          </option>
+                          <option value="Smart Ordering Plan (₹7,499 setup + ₹999/mo)">
+                            Smart Ordering Plan (₹7,499 setup + ₹999/mo)
+                          </option>
+                          <option value="Business Pro Plan (₹12,999 setup + ₹1,499/mo)">
+                            Business Pro Plan (₹12,999 setup + ₹1,499/mo)
+                          </option>
+                          <option value="CoreNode GymOS — Gym Management Software">
+                            CoreNode GymOS — Gym Management Software
+                          </option>
+                          <option value="CoreNode Attend — Attendance System">
+                            CoreNode Attend — Attendance System
+                          </option>
+                          <option value="Custom Software / Application Development">
+                            Custom Software / Application Development
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="cn-field">
+                      <label htmlFor="inq-message" className="cn-label">
+                        Brief Project Description
+                      </label>
+                      <textarea
+                        id="inq-message"
+                        rows={3}
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Tell us about your business or the custom software features you need..."
+                        className="cn-textarea"
+                      />
+                    </div>
+
+                    {submitStatus && (
+                      <div
+                        style={{
+                          backgroundColor: "#d1fae5",
+                          color: "#065f46",
+                          padding: "12px",
+                          borderRadius: "10px",
+                          fontSize: "13px",
+                          fontWeight: 600,
+                          marginBottom: "14px",
+                        }}
+                      >
+                        {submitStatus}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="cn-btn-primary"
+                      style={{ width: "100%", padding: "15px 24px" }}
+                    >
+                      {submitting
+                        ? "Sending Project Inquiry..."
+                        : "Send Project Inquiry →"}
+                    </button>
+                  </form>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* FLOATING QUICK-LAUNCH DOCK */}
+      <div className="cn-floating-dock">
+        <a
+          href="#offer-99"
+          style={{
+            backgroundColor: "#eab308",
+            color: "#0f172a",
+            fontSize: "12px",
+            fontWeight: 800,
+            padding: "7px 12px",
+            borderRadius: "999px",
+          }}
+        >
+          ⚡ ₹99 Website
+        </a>
+        <a
+          href="#live-products"
+          style={{
+            color: "#ffffff",
+            fontSize: "12px",
+            fontWeight: 700,
+            padding: "6px 10px",
+          }}
+        >
+          Live Demos
+        </a>
+        <a
+          href="#contact"
+          style={{
+            backgroundColor: "#2563eb",
+            color: "#ffffff",
+            fontSize: "12px",
+            fontWeight: 700,
+            padding: "7px 12px",
+            borderRadius: "999px",
+          }}
+        >
+          Inquire →
+        </a>
+      </div>
+
+      {/* FULLSCREEN INTERACTIVE THEATER MODAL FOR LIVE APPS */}
+      {theaterApp && (
+        <div
+          className="cn-modal-backdrop"
+          onClick={() => setTheaterApp(null)}
+        >
+          <div
+            className="cn-modal-window"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="cn-modal-header">
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span className="cn-badge-green">Live Interactive Mode</span>
+                <strong style={{ fontSize: "14px" }}>{theaterApp.title}</strong>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <a
+                  href={theaterApp.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cn-launch-pill"
+                >
+                  Open in Full Tab ↗
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setTheaterApp(null)}
+                  style={{
+                    backgroundColor: "#334155",
+                    color: "#ffffff",
+                    border: "none",
+                    padding: "7px 12px",
+                    borderRadius: "8px",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                  }}
+                >
+                  ✕ Close
+                </button>
+              </div>
+            </div>
+            <iframe
+              src={theaterApp.url}
+              title={theaterApp.title}
+              style={{ width: "100%", height: "100%", border: "none" }}
+            />
+          </div>
+        </div>
+      )}
+
+      <SiteFooter />
+    </div>
+  );
 }

@@ -1,0 +1,125 @@
+/* ============================================================
+   CoreNode design tokens
+   Light-first system with dark brand bands.
+   Brand identity (teal accent, Manrope + DM Mono, node mark)
+   is carried over from the existing CoreNode website.
+   ============================================================ */
+
+:root {
+  /* ---- Dark brand surfaces ---- */
+  --ink-900: #060b0e;
+  --ink-800: #0b1317;
+  --ink-700: #101b20;
+  --ink-600: #16242a;
+  --ink-500: #1e3038;
+
+  /* ---- Light surfaces ---- */
+  --paper: #ffffff;
+  --paper-2: #f4f8f7;
+  --paper-3: #ecf2f1;
+  --paper-4: #e2ebe9;
+
+  /* ---- Brand ---- */
+  --brand: #0b8f83;
+  --brand-ink: #07635c;
+  --brand-bright: #6fdcd1;
+  --brand-soft: #e4f6f4;
+  --brand-line: #bfe6e1;
+
+  /* ---- Accents (used per solution / plan) ---- */
+  --acc-teal: #0b8f83;
+  --acc-teal-soft: #e4f6f4;
+  --acc-green: #0f9d68;
+  --acc-green-soft: #e6f7f0;
+  --acc-blue: #2563eb;
+  --acc-blue-soft: #e9f0ff;
+  --acc-violet: #6d3bd6;
+  --acc-violet-soft: #f1ecfd;
+  --acc-warm: #d95f1c;
+  --acc-warm-soft: #fdefe5;
+
+  /* ---- Text on light ---- */
+  --text-1: #0a1114;
+  --text-2: #46585f;
+  --text-3: #6d7f87;
+  --text-4: #94a3a8;
+
+  /* ---- Text on dark ---- */
+  --on-dark-1: #eef4f5;
+  --on-dark-2: #a3b2b8;
+  --on-dark-3: #76878e;
+
+  /* ---- Lines ---- */
+  --line: #e2eae9;
+  --line-2: #eff4f3;
+  --line-strong: #cdd9d7;
+  --line-dark: rgba(255, 255, 255, 0.1);
+  --line-dark-2: rgba(255, 255, 255, 0.18);
+
+  /* ---- Radii ---- */
+  --r-xs: 8px;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-full: 999px;
+
+  /* ---- Elevation ---- */
+  --sh-xs: 0 1px 2px rgba(8, 20, 24, 0.05);
+  --sh-sm: 0 2px 6px -2px rgba(8, 20, 24, 0.08), 0 1px 2px rgba(8, 20, 24, 0.04);
+  --sh-md: 0 18px 38px -20px rgba(8, 24, 28, 0.24), 0 2px 6px -2px rgba(8, 24, 28, 0.06);
+  --sh-lg: 0 40px 80px -44px rgba(6, 20, 24, 0.42), 0 6px 16px -8px rgba(6, 20, 24, 0.08);
+  --sh-xl: 0 60px 110px -50px rgba(6, 20, 24, 0.5), 0 10px 24px -12px rgba(6, 20, 24, 0.1);
+  --sh-dark: 0 50px 100px -50px rgba(0, 0, 0, 0.8);
+
+  /* ---- Layout ---- */
+  --wrap: 1220px;
+  --wrap-narrow: 880px;
+  --gut: clamp(20px, 5vw, 60px);
+  --sec-y: clamp(64px, 8vw, 118px);
+  --nav-h: 74px;
+
+  /* ---- Type ---- */
+  --font-sans: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --fs-display: clamp(2.6rem, 5.2vw, 4.4rem);
+  --fs-h1: clamp(2.2rem, 4.4vw, 3.6rem);
+  --fs-h2: clamp(1.85rem, 3.4vw, 2.85rem);
+  --fs-h3: clamp(1.25rem, 1.9vw, 1.6rem);
+  --fs-h4: clamp(1.05rem, 1.4vw, 1.2rem);
+  --fs-body: clamp(0.95rem, 1.05vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.6875rem;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --t-fast: 160ms;
+  --t-base: 260ms;
+  --t-slow: 520ms;
+
+  /* ---- Accent mapping (per-solution theming) ---- */
+  --accent: var(--acc-teal);
+  --accent-soft: var(--acc-teal-soft);
+}
+
+[data-accent="green"] {
+  --accent: var(--acc-green);
+  --accent-soft: var(--acc-green-soft);
+}
+[data-accent="blue"] {
+  --accent: var(--acc-blue);
+  --accent-soft: var(--acc-blue-soft);
+}
+[data-accent="violet"] {
+  --accent: var(--acc-violet);
+  --accent-soft: var(--acc-violet-soft);
+}
+[data-accent="warm"] {
+  --accent: var(--acc-warm);
+  --accent-soft: var(--acc-warm-soft);
+}
+[data-accent="teal"] {
+  --accent: var(--acc-teal);
+  --accent-soft: var(--acc-teal-soft);
+}

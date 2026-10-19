@@ -4,9 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import SiteNav from "./components/SiteNav";
 import SiteFooter from "./components/SiteFooter";
 
-// ============================================================================
-// LIVE PRODUCTION DEMO URLS & PRIVATE DISPATCH
-// ============================================================================
 const CORENODE_DEMOS = {
   cafe: "https://cafe-ordering-system-nine.vercel.app/",
   gymos: "https://corenode-gymos.vercel.app/",
@@ -16,9 +13,6 @@ const CORENODE_DEMOS = {
 // Assembled privately at runtime — never displayed in the UI
 const getPrivateRecipient = () => ["tiwarigopal94", "gmail.com"].join("@");
 
-// ============================================================================
-// SCROLL-REVEAL COMPONENT (Fades & glides elements in as you scroll)
-// ============================================================================
 function ScrollReveal({
   children,
   delayClass = "",
@@ -40,7 +34,7 @@ function ScrollReveal({
           observer.unobserve(node);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
     );
 
     observer.observe(node);
@@ -114,7 +108,7 @@ const PRODUCT_SUITE = [
   },
   {
     id: "custom-software",
-    tabLabel: "⚡ Request Custom Software / App",
+    tabLabel: "⚡ Custom Software / App",
     badge: "Tailored Engineering",
     category: "Custom Web & App Studio",
     title: "Custom Software, Web Portals & Business Applications",
@@ -161,7 +155,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Can I try the Cafe Ordering, GymOS, and Attend software before inquiring?",
-    a: "Yes! Every product card on this website is connected directly to our live production demos. You can either open them in a new tab or click 'Interact Live on Page' to test them inside our fullscreen theater mode.",
+    a: "Yes! Every product card on this website is connected directly to our live production demos. Click any preview window or 'Try Demo' button to test the actual software in a new tab.",
   },
   {
     q: "What if I need a custom software application that is different from the 3 demos?",
@@ -169,7 +163,6 @@ const FAQ_ITEMS = [
   },
 ];
 
-// Reusable Clickable Live Website Snapshot Component with Desktop/Mobile + Theater Mode
 function LiveWebsiteSnapshot({
   url,
   title,
@@ -227,7 +220,7 @@ function LiveWebsiteSnapshot({
             flexShrink: 0,
           }}
         >
-          New Tab ↗
+          Open ↗
         </a>
       </div>
 
@@ -257,11 +250,11 @@ function LiveWebsiteSnapshot({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ flex: 1 }}
+            style={{ flex: 1, minWidth: "140px" }}
           >
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "10.5px",
                 fontWeight: 700,
                 color: "#93c5fd",
                 textTransform: "uppercase",
@@ -269,12 +262,19 @@ function LiveWebsiteSnapshot({
             >
               Live Production App
             </div>
-            <div style={{ fontSize: "15px", fontWeight: 800, color: "#ffffff" }}>
+            <div
+              style={{
+                fontSize: "14px",
+                fontWeight: 800,
+                color: "#ffffff",
+                lineHeight: 1.25,
+              }}
+            >
               {title}
             </div>
           </a>
 
-          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
             {onOpenTheater && (
               <button
                 type="button"
@@ -300,7 +300,6 @@ function LiveWebsiteSnapshot({
 }
 
 export default function HomePage() {
-  // Cycling Hero Industry Words
   const heroIndustries = [
     "Cafes & Restaurants",
     "Gyms & Fitness Clubs",
@@ -316,12 +315,10 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [heroIndustries.length]);
 
-  // Active Product Tab
   const [activeProductId, setActiveProductId] = useState(PRODUCT_SUITE[0].id);
   const activeProduct =
     PRODUCT_SUITE.find((p) => p.id === activeProductId) || PRODUCT_SUITE[0];
 
-  // Interactive Live QR -> Kitchen Simulator State
   const [simCart, setSimCart] = useState<
     { name: string; price: number; qty: number }[]
   >([
@@ -353,7 +350,6 @@ export default function HomePage() {
 
   const simTotal = simCart.reduce((acc, i) => acc + i.price * i.qty, 0);
 
-  // Interactive Custom Software Blueprint State (For the 4th Option)
   const [selectedModules, setSelectedModules] = useState<string[]>([
     "📊 Admin & Analytics Dashboard",
     "💳 UPI & Online Payments",
@@ -366,16 +362,13 @@ export default function HomePage() {
     );
   };
 
-  // Fullscreen Theater Modal State
   const [theaterApp, setTheaterApp] = useState<{
     url: string;
     title: string;
   } | null>(null);
 
-  // FAQ Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Contact Form State (Email address kept hidden from UI)
   const [name, setName] = useState("");
   const [business, setBusiness] = useState("");
   const [contactInfo, setContactInfo] = useState("");
@@ -466,15 +459,14 @@ export default function HomePage() {
 
       <main>
         {/* ================================================================
-            SECTION B: HERO SECTION WITH CYCLING TEXT & LIVE SNAPSHOT
+            SECTION B: HERO SECTION
             ================================================================ */}
         <section className="cn-hero">
           <div className="cn-container">
             <div className="cn-hero-grid">
-              {/* Left Column */}
               <ScrollReveal>
                 <div className="cn-eyebrow">
-                  <span>●</span> SaaS Products, QR Ordering & Custom Software Studio
+                  <span>●</span> SaaS Products, QR Ordering & Custom Software
                 </div>
                 <h1 className="cn-h1">
                   Smart Software & Websites Built for{" "}
@@ -482,7 +474,7 @@ export default function HomePage() {
                     {heroIndustries[wordIndex]}
                   </span>
                 </h1>
-                <p className="cn-lead" style={{ marginBottom: "28px" }}>
+                <p className="cn-lead" style={{ marginBottom: "24px" }}>
                   From our <strong>₹99 Customized Business Website</strong> launch offer to live production SaaS platforms—<strong>Cafe QR Ordering</strong>, <strong>CoreNode GymOS</strong>, <strong>CoreNode Attend</strong>, and <strong>Tailored Custom Applications</strong>—we build technology that runs your floor.
                 </p>
 
@@ -495,27 +487,18 @@ export default function HomePage() {
                   </a>
                 </div>
 
-                {/* 4 Quick Action Pills (3 Live Demos + 1 Custom Software Request) */}
-                <div
-                  style={{
-                    marginTop: "28px",
-                    paddingTop: "20px",
-                    borderTop: "1px solid #e2e8f0",
-                    display: "flex",
-                    flexWrap: "wrap",
-                    alignItems: "center",
-                    gap: "10px",
-                  }}
-                >
+                <div className="cn-quick-pills">
                   <span
                     style={{
-                      fontSize: "12px",
+                      fontSize: "11.5px",
                       fontWeight: 800,
                       color: "#64748b",
                       textTransform: "uppercase",
+                      width: "100%",
+                      marginBottom: "2px",
                     }}
                   >
-                    Instant Demos:
+                    Instant Live Demos:
                   </span>
                   <a
                     href={CORENODE_DEMOS.cafe}
@@ -556,13 +539,12 @@ export default function HomePage() {
                 </div>
               </ScrollReveal>
 
-              {/* Right Column: Live Snapshot with Desktop/Mobile + Theater Mode */}
               <ScrollReveal delayClass="cn-delay-1">
                 <div className="cn-float">
                   <LiveWebsiteSnapshot
                     url={CORENODE_DEMOS.cafe}
                     title="Cafe & QR Ordering System"
-                    height={370}
+                    height={350}
                     allowDeviceToggle={true}
                     onOpenTheater={(url, title) => setTheaterApp({ url, title })}
                   />
@@ -573,7 +555,7 @@ export default function HomePage() {
         </section>
 
         {/* ================================================================
-            OUT-OF-THE-BOX UPGRADE: INTERACTIVE QR -> KITCHEN SIMULATOR
+            INTERACTIVE QR -> KITCHEN SIMULATOR
             ================================================================ */}
         <section id="interactive-simulator" className="cn-section-white">
           <div className="cn-container">
@@ -584,7 +566,7 @@ export default function HomePage() {
                   See How CoreNode Connects Customers to Your Staff in Real Time
                 </h2>
                 <p className="cn-lead">
-                  Tap any item on the simulated <strong>Customer Table Phone</strong> on the left and watch the <strong>Live Kitchen Order Ticket (KOT)</strong> update instantly on the right.
+                  Tap any item on the simulated <strong>Customer Table Phone</strong> and watch the <strong>Live Kitchen Order Ticket (KOT)</strong> update instantly.
                 </p>
               </div>
             </ScrollReveal>
@@ -593,16 +575,7 @@ export default function HomePage() {
               <div className="cn-sim-grid">
                 {/* Left: Customer QR Menu Tap Simulator */}
                 <div className="cn-sim-phone">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      borderBottom: "1px solid #e2e8f0",
-                      paddingBottom: "12px",
-                      marginBottom: "14px",
-                    }}
-                  >
+                  <div className="cn-sim-header">
                     <div>
                       <span
                         style={{
@@ -614,7 +587,7 @@ export default function HomePage() {
                       >
                         📱 Table #04 • QR Scan View
                       </span>
-                      <h3 style={{ fontSize: "17px", fontWeight: 800 }}>
+                      <h3 style={{ fontSize: "16px", fontWeight: 800 }}>
                         Tap an Item to Add to Order
                       </h3>
                     </div>
@@ -628,10 +601,10 @@ export default function HomePage() {
                       onClick={() => addToSimCart(item)}
                       className="cn-sim-item-btn"
                     >
-                      <div>
+                      <div style={{ minWidth: 0 }}>
                         <div
                           style={{
-                            fontSize: "14px",
+                            fontSize: "13.5px",
                             fontWeight: 700,
                             color: "#0f172a",
                           }}
@@ -648,8 +621,9 @@ export default function HomePage() {
                           color: "#ffffff",
                           fontSize: "12px",
                           fontWeight: 800,
-                          padding: "6px 12px",
+                          padding: "6px 10px",
                           borderRadius: "8px",
+                          flexShrink: 0,
                         }}
                       >
                         + ₹{item.price}
@@ -677,18 +651,7 @@ export default function HomePage() {
                 {/* Right: Live Staff / Kitchen Dashboard Ticket */}
                 <div className="cn-sim-kot">
                   <div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: "10px",
-                        borderBottom: "1px solid #334155",
-                        paddingBottom: "14px",
-                        marginBottom: "16px",
-                      }}
-                    >
+                    <div className="cn-sim-kot-header">
                       <div>
                         <span
                           style={{
@@ -702,7 +665,7 @@ export default function HomePage() {
                         </span>
                         <h3
                           style={{
-                            fontSize: "19px",
+                            fontSize: "18px",
                             fontWeight: 800,
                             color: "#ffffff",
                           }}
@@ -723,14 +686,14 @@ export default function HomePage() {
                               : "#2563eb",
                           color: "#ffffff",
                           border: "none",
-                          padding: "7px 14px",
+                          padding: "7px 12px",
                           borderRadius: "999px",
-                          fontSize: "12px",
+                          fontSize: "11.5px",
                           fontWeight: 800,
                           cursor: "pointer",
                         }}
                       >
-                        Status: {kotStatus} (Click to Advance ↻)
+                        {kotStatus} ↻
                       </button>
                     </div>
 
@@ -739,10 +702,10 @@ export default function HomePage() {
                         style={{
                           color: "#94a3b8",
                           fontSize: "14px",
-                          padding: "24px 0",
+                          padding: "20px 0",
                         }}
                       >
-                        No items in ticket yet. Tap any menu item on the left!
+                        No items in ticket yet. Tap any menu item above!
                       </p>
                     ) : (
                       <div
@@ -759,16 +722,23 @@ export default function HomePage() {
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
+                              gap: "8px",
                               backgroundColor: "rgba(255,255,255,0.05)",
-                              padding: "10px 14px",
+                              padding: "10px 12px",
                               borderRadius: "10px",
-                              fontSize: "14px",
+                              fontSize: "13.5px",
                             }}
                           >
                             <span>
                               <strong>{c.qty}x</strong> {c.name}
                             </span>
-                            <span style={{ fontWeight: 700, color: "#93c5fd" }}>
+                            <span
+                              style={{
+                                fontWeight: 700,
+                                color: "#93c5fd",
+                                flexShrink: 0,
+                              }}
+                            >
                               ₹{c.price * c.qty}
                             </span>
                           </div>
@@ -779,7 +749,7 @@ export default function HomePage() {
 
                   <div
                     style={{
-                      marginTop: "22px",
+                      marginTop: "20px",
                       paddingTop: "16px",
                       borderTop: "1px solid #334155",
                       display: "flex",
@@ -804,16 +774,14 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div style={{ display: "flex", gap: "10px" }}>
-                      <a
-                        href={CORENODE_DEMOS.cafe}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="cn-btn-primary"
-                      >
-                        Launch Full Live Cafe Demo ↗
-                      </a>
-                    </div>
+                    <a
+                      href={CORENODE_DEMOS.cafe}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cn-btn-primary"
+                    >
+                      Launch Full Cafe Demo ↗
+                    </a>
                   </div>
                 </div>
               </div>
@@ -835,13 +803,12 @@ export default function HomePage() {
                   Test-Drive Our 3 Live Products or Configure a Custom Application
                 </h2>
                 <p className="cn-lead">
-                  Switch between our live production SaaS demos or select{" "}
-                  <strong>Request Custom Software / App</strong> to build a tailored tool for your workflow.
+                  Swipe or click the tabs below to switch between our live production SaaS demos or select{" "}
+                  <strong>Custom Software / App</strong> to build a tailored tool for your workflow.
                 </p>
               </div>
             </ScrollReveal>
 
-            {/* 4 Product Switcher Tabs */}
             <ScrollReveal delayClass="cn-delay-1">
               <div className="cn-tools-tabs" role="tablist">
                 {PRODUCT_SUITE.map((prod) => (
@@ -861,15 +828,15 @@ export default function HomePage() {
               </div>
             </ScrollReveal>
 
-            {/* Active Stage */}
             <ScrollReveal delayClass="cn-delay-2">
               <div className="cn-tool-stage">
                 <div>
                   <div
                     style={{
                       display: "flex",
+                      flexWrap: "wrap",
                       alignItems: "center",
-                      gap: "10px",
+                      gap: "8px",
                       marginBottom: "14px",
                     }}
                   >
@@ -887,9 +854,7 @@ export default function HomePage() {
                     </span>
                   </div>
 
-                  <h3 className="cn-h2" style={{ fontSize: "1.9rem" }}>
-                    {activeProduct.title}
-                  </h3>
+                  <h3 className="cn-h2">{activeProduct.title}</h3>
                   <p className="cn-lead" style={{ marginTop: "10px" }}>
                     {activeProduct.description}
                   </p>
@@ -925,27 +890,25 @@ export default function HomePage() {
                         <button
                           type="button"
                           onClick={() =>
-                            setTheaterApp({
-                              url: activeProduct.url,
-                              title: activeProduct.title,
-                            })
+                            handleSelectPlanAndScroll(
+                              `${activeProduct.title} Setup Inquiry`
+                            )
                           }
                           className="cn-btn-secondary"
                         >
-                          ⚡ Interact Live on Page
+                          Get This for Your Business
                         </button>
                       </>
                     )}
                   </div>
                 </div>
 
-                {/* Right Column: Live Snapshot OR Interactive Custom App Blueprint Builder */}
                 <div>
                   {!activeProduct.isCustomBuilder ? (
                     <LiveWebsiteSnapshot
                       url={activeProduct.url}
                       title={activeProduct.title}
-                      height={360}
+                      height={340}
                       allowDeviceToggle={true}
                       onOpenTheater={(url, title) =>
                         setTheaterApp({ url, title })
@@ -956,8 +919,10 @@ export default function HomePage() {
                       <div
                         style={{
                           display: "flex",
+                          flexWrap: "wrap",
                           justifyContent: "space-between",
                           alignItems: "center",
+                          gap: "8px",
                           borderBottom: "1px solid #334155",
                           paddingBottom: "14px",
                         }}
@@ -975,7 +940,7 @@ export default function HomePage() {
                           </span>
                           <h4
                             style={{
-                              fontSize: "18px",
+                              fontSize: "17px",
                               fontWeight: 800,
                               color: "#ffffff",
                               marginTop: "2px",
@@ -996,7 +961,7 @@ export default function HomePage() {
                           marginTop: "12px",
                         }}
                       >
-                        Click the features you need below, then click the button to pre-fill your custom software inquiry:
+                        Tap the features you need below, then click the button to pre-fill your custom software inquiry:
                       </p>
 
                       <div className="cn-module-grid">
@@ -1031,7 +996,7 @@ export default function HomePage() {
                         className="cn-btn-primary"
                         style={{ width: "100%", marginTop: "8px" }}
                       >
-                        Request Custom App With {selectedModules.length} Selected Modules →
+                        Request Custom App ({selectedModules.length} Modules) →
                       </button>
                     </div>
                   )}
@@ -1053,7 +1018,7 @@ export default function HomePage() {
                   Click Any Live Product Below or Request a Custom Application
                 </h2>
                 <p className="cn-lead">
-                  Every preview window below renders our live deployed software. Click to open in a new tab or launch fullscreen theater mode.
+                  Every preview window below renders our live deployed software. Tap any card to launch the working demo.
                 </p>
               </div>
             </ScrollReveal>
@@ -1064,16 +1029,13 @@ export default function HomePage() {
                   key={product.id}
                   delayClass={index % 2 === 1 ? "cn-delay-1" : ""}
                 >
-                  <div
-                    className="cn-card"
-                    style={{ padding: "20px", height: "100%" }}
-                  >
+                  <div className="cn-card" style={{ height: "100%" }}>
                     <div>
                       {!product.isCustomBuilder ? (
                         <LiveWebsiteSnapshot
                           url={product.url}
                           title={product.tabLabel}
-                          height={240}
+                          height={220}
                           onOpenTheater={(url, title) =>
                             setTheaterApp({ url, title })
                           }
@@ -1082,7 +1044,7 @@ export default function HomePage() {
                         <div
                           className="cn-blueprint-card"
                           style={{
-                            minHeight: "282px",
+                            minHeight: "260px",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-between",
@@ -1094,7 +1056,7 @@ export default function HomePage() {
                             </span>
                             <h4
                               style={{
-                                fontSize: "20px",
+                                fontSize: "19px",
                                 fontWeight: 800,
                                 color: "#ffffff",
                                 marginTop: "12px",
@@ -1129,7 +1091,7 @@ export default function HomePage() {
                         </div>
                       )}
 
-                      <div style={{ padding: "20px 6px 12px 6px" }}>
+                      <div style={{ padding: "18px 2px 12px 2px" }}>
                         <span
                           className={
                             product.isCustomBuilder
@@ -1139,10 +1101,7 @@ export default function HomePage() {
                         >
                           {product.category}
                         </span>
-                        <h3
-                          className="cn-h3"
-                          style={{ marginTop: "10px", fontSize: "1.3rem" }}
-                        >
+                        <h3 className="cn-h3" style={{ marginTop: "10px" }}>
                           {product.title}
                         </h3>
                         <p
@@ -1154,7 +1113,7 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div style={{ padding: "0 6px 6px 6px" }}>
+                    <div>
                       {!product.isCustomBuilder ? (
                         <a
                           href={product.url}
@@ -1204,10 +1163,8 @@ export default function HomePage() {
                     <span>⚡ LIMITED-TIME LAUNCH SPECIAL</span>
                   </div>
                   <h2
+                    className="cn-h2"
                     style={{
-                      fontSize: "clamp(1.9rem, 3.4vw, 2.75rem)",
-                      fontWeight: 900,
-                      lineHeight: 1.15,
                       color: "#ffffff",
                       marginBottom: "14px",
                     }}
@@ -1216,24 +1173,16 @@ export default function HomePage() {
                   </h2>
                   <p
                     style={{
-                      fontSize: "16px",
+                      fontSize: "15px",
                       color: "#dbeafe",
                       lineHeight: 1.65,
-                      marginBottom: "24px",
-                      maxWidth: "620px",
+                      marginBottom: "22px",
                     }}
                   >
                     Want to get your business online right away? Launch a clean, mobile-responsive landing page and customized business website tailored to your brand identity for a one-time introductory offer of <strong>₹99</strong>.
                   </p>
 
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns:
-                        "repeat(auto-fit, minmax(220px, 1fr))",
-                      gap: "12px",
-                    }}
-                  >
+                  <div className="cn-poster-perks">
                     {[
                       "Custom Brand & Service Showcase",
                       "Mobile & Desktop Responsive UI",
@@ -1246,7 +1195,7 @@ export default function HomePage() {
                           display: "flex",
                           alignItems: "center",
                           gap: "10px",
-                          fontSize: "14px",
+                          fontSize: "13.5px",
                           fontWeight: 600,
                           color: "#ffffff",
                         }}
@@ -1263,6 +1212,7 @@ export default function HomePage() {
                             justifyContent: "center",
                             fontWeight: 900,
                             fontSize: "12px",
+                            flexShrink: 0,
                           }}
                         >
                           ✓
@@ -1290,7 +1240,7 @@ export default function HomePage() {
                     style={{
                       fontSize: "13.5px",
                       color: "#e2e8f0",
-                      marginBottom: "22px",
+                      marginBottom: "20px",
                     }}
                   >
                     Landing Page & Customized Business Website
@@ -1328,16 +1278,10 @@ export default function HomePage() {
             <ScrollReveal>
               <div
                 className="cn-section-header"
-                style={{ marginBottom: "56px" }}
+                style={{ marginBottom: "48px" }}
               >
                 <div className="cn-eyebrow-dark">05 / PRICING</div>
-                <h2
-                  className="cn-h2"
-                  style={{
-                    color: "#ffffff",
-                    fontSize: "clamp(2.2rem, 4vw, 3.25rem)",
-                  }}
-                >
+                <h2 className="cn-h2" style={{ color: "#ffffff" }}>
                   Simple, transparent pricing.
                 </h2>
                 <p className="cn-lead-dark">
@@ -1356,7 +1300,7 @@ export default function HomePage() {
                   <div>
                     <h3
                       style={{
-                        fontSize: "1.45rem",
+                        fontSize: "1.4rem",
                         fontWeight: 800,
                         color: "#10b981",
                       }}
@@ -1425,7 +1369,7 @@ export default function HomePage() {
                   <div>
                     <h3
                       style={{
-                        fontSize: "1.45rem",
+                        fontSize: "1.4rem",
                         fontWeight: 800,
                         color: "#2563eb",
                       }}
@@ -1482,7 +1426,7 @@ export default function HomePage() {
                         )
                       }
                       className="cn-btn-primary"
-                      style={{ width: "100%", padding: "15px 24px" }}
+                      style={{ width: "100%", padding: "15px 22px" }}
                     >
                       Choose Smart Ordering ↗
                     </button>
@@ -1499,7 +1443,7 @@ export default function HomePage() {
                   <div>
                     <h3
                       style={{
-                        fontSize: "1.45rem",
+                        fontSize: "1.4rem",
                         fontWeight: 800,
                         color: "#f97316",
                       }}
@@ -1611,7 +1555,7 @@ export default function HomePage() {
         </section>
 
         {/* ================================================================
-            FAQ SECTION WITH SCROLL REVEAL
+            FAQ SECTION
             ================================================================ */}
         <section id="why-corenode" className="cn-section-white">
           <div className="cn-container">
@@ -1644,6 +1588,7 @@ export default function HomePage() {
                             fontSize: "18px",
                             fontWeight: 900,
                             color: "#2563eb",
+                            flexShrink: 0,
                           }}
                         >
                           {isOpen ? "−" : "+"}
@@ -1659,7 +1604,7 @@ export default function HomePage() {
         </section>
 
         {/* ================================================================
-            SECTION J: PROJECT INQUIRY FORM (EMAIL HIDDEN FROM UI)
+            SECTION J: PROJECT INQUIRY FORM
             ================================================================ */}
         <section id="contact" className="cn-section-dark">
           <div className="cn-container">
@@ -1670,7 +1615,7 @@ export default function HomePage() {
                   <h2 className="cn-h2" style={{ color: "#ffffff" }}>
                     Ready to Launch Your Website or Custom Software?
                   </h2>
-                  <p className="cn-lead-dark" style={{ marginBottom: "28px" }}>
+                  <p className="cn-lead-dark" style={{ marginBottom: "24px" }}>
                     Submit your project details using the form and our engineering team will review your requirements and reach out to you directly.
                   </p>
 
@@ -1679,7 +1624,7 @@ export default function HomePage() {
                       backgroundColor: "#0b1324",
                       border: "1px solid #1e293b",
                       borderRadius: "18px",
-                      padding: "24px",
+                      padding: "20px",
                     }}
                   >
                     <div
@@ -1750,14 +1695,15 @@ export default function HomePage() {
                 </div>
               </ScrollReveal>
 
-              {/* Project Inquiry Form (Private recipient behind the scenes) */}
               <ScrollReveal delayClass="cn-delay-1">
                 <div className="cn-form-card">
                   <div
                     style={{
                       display: "flex",
+                      flexWrap: "wrap",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      gap: "8px",
                       borderBottom: "1px solid #e2e8f0",
                       paddingBottom: "14px",
                       marginBottom: "20px",
@@ -1891,7 +1837,7 @@ export default function HomePage() {
                       type="submit"
                       disabled={submitting}
                       className="cn-btn-primary"
-                      style={{ width: "100%", padding: "15px 24px" }}
+                      style={{ width: "100%", padding: "15px 22px" }}
                     >
                       {submitting
                         ? "Sending Project Inquiry..."
@@ -1916,6 +1862,7 @@ export default function HomePage() {
             fontWeight: 800,
             padding: "7px 12px",
             borderRadius: "999px",
+            whiteSpace: "nowrap",
           }}
         >
           ⚡ ₹99 Website
@@ -1926,7 +1873,8 @@ export default function HomePage() {
             color: "#ffffff",
             fontSize: "12px",
             fontWeight: 700,
-            padding: "6px 10px",
+            padding: "6px 8px",
+            whiteSpace: "nowrap",
           }}
         >
           Live Demos
@@ -1940,13 +1888,14 @@ export default function HomePage() {
             fontWeight: 700,
             padding: "7px 12px",
             borderRadius: "999px",
+            whiteSpace: "nowrap",
           }}
         >
           Inquire →
         </a>
       </div>
 
-      {/* FULLSCREEN INTERACTIVE THEATER MODAL FOR LIVE APPS */}
+      {/* FULLSCREEN INTERACTIVE THEATER MODAL */}
       {theaterApp && (
         <div
           className="cn-modal-backdrop"
@@ -1957,18 +1906,18 @@ export default function HomePage() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="cn-modal-header">
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <span className="cn-badge-green">Live Interactive Mode</span>
-                <strong style={{ fontSize: "14px" }}>{theaterApp.title}</strong>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span className="cn-badge-green">Live Mode</span>
+                <strong style={{ fontSize: "13.5px" }}>{theaterApp.title}</strong>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <a
                   href={theaterApp.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cn-launch-pill"
                 >
-                  Open in Full Tab ↗
+                  Full Tab ↗
                 </a>
                 <button
                   type="button"
@@ -1977,14 +1926,14 @@ export default function HomePage() {
                     backgroundColor: "#334155",
                     color: "#ffffff",
                     border: "none",
-                    padding: "7px 12px",
+                    padding: "6px 10px",
                     borderRadius: "8px",
                     fontSize: "12px",
                     fontWeight: 700,
                     cursor: "pointer",
                   }}
                 >
-                  ✕ Close
+                  ✕
                 </button>
               </div>
             </div>
